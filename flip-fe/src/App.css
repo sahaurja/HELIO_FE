@@ -1,0 +1,46 @@
+body{
+    background: content-box radial-gradient(crimson, skyblue); 
+}
+
+
+.flashcard-container{
+    border: 1px solid black;
+    width: 600px;
+    height:600px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto;
+    background: white;
+    border-radius: 25px;;
+}
+
+.flashcard{
+    font-size: larger;
+    border: 1px solid blue;
+    padding: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 300px;
+    height: 350px;
+    transform-style: preserve-3d;
+    /* transition: transform 0.6s;  */
+}
+
+.flash-text{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.flash-actions{
+    margin: 10px;
+}
+
+.flash-actions button{
+    font-size: 15px;
+}
+
