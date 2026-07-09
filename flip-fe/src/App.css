@@ -14,7 +14,8 @@ body{
     text-align: center;
     margin: 0 auto;
     background: white;
-    border-radius: 25px;;
+    border-radius: 25px;
+    transform: translateY(50px);
 }
 
 .flashcard{
