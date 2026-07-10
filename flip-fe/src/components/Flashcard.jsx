@@ -1,6 +1,8 @@
 //later, pass in the data as a prob per card 
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { Tooltip } from 'react-tooltip'
+
 
 
 export default function Flashcard(){
@@ -58,7 +60,7 @@ export default function Flashcard(){
         return (
             <>
                 <div className = "flashcard-container" style = {{zIndex:"1"}}>
-                <div className = "flashcard">
+                <div className = "flashcard" style = {{margin : "10px"}}>
                     <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}}>
                     <input name = "id_val" type = "number" placeholder="user id"  onChange={(e) => handleValueChange(e)}/>
                     <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
@@ -96,7 +98,7 @@ export default function Flashcard(){
         return(
             <>
                 <div className = "flashcard-container" style = {{zIndex:"1"}}>
-                    <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}}>
+                    <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}} style = {{margin : "10px"}}>
                         <input name = "id_val" type = "number" placeholder="user id" onChange={(e) => handleValueChange(e)}/>
                         <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
                         <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
@@ -111,6 +113,13 @@ export default function Flashcard(){
                             <p>{back_value}</p>
                         </div>}
                         </div>
+                        {/* add rating btns */}
+                        <div className = "rating-actions">
+                            <a className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top">🙌</a>
+                            <a className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top">😑</a>
+                            <a className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top">☹️</a>
+                        </div>
+                        <Tooltip id = "rating-tip"/>
                     </div>
                     <div className="flash-actions">
                         <button style={{marginRight:"10px"}} onClick={(e) => handleMovement(e, "back")}>Back</button>
