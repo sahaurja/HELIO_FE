@@ -128,9 +128,9 @@ export default function Flashcard(){
                         </div>
                         {/* add rating btns */}
                         <div className = "rating-actions">
-                            <a href = "#" className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 3)}>🙌</a>
-                            <a  href = "#" className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 2)}>😑</a>
-                            <a  href = "#" className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 1)}>☹️</a>
+                            <a href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 3)}>🙌</a>
+                            <a  href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 2)}>😑</a>
+                            <a  href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 1)}>☹️</a>
                         </div>
                         <Tooltip id = "rating-tip"/>
                     </div>

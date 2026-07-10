@@ -1,3 +1,13 @@
+/* add tailwind without Preflight */
+/* 1. Set your layer order */
+@layer theme, base, components, utilities;
+
+/* 2. Import the core package with the prefix */
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+
+
 body{
     background: linear-gradient(#FFEFB0, #FFFFFF);
     background-repeat: no-repeat;
