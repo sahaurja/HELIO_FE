@@ -61,4 +61,5 @@ body{
 .rating-btn{
     font-family: monospace;
     font-size: 40px;
+    text-decoration: none;
 }

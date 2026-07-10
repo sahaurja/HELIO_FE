@@ -23,11 +23,13 @@ export default function Flashcard(){
     let currentCard = cardData.length > 0 ? cardData[currentIndex] : null;
     let front_value = currentCard ? currentCard["output_text"] : "No cards found";
     let back_value = currentCard ? currentCard["input_text"] : "No cards found";
+    let translator_id_value = currentCard ? currentCard["translator_id"] : "None";
 
     
 
     //fetch the flashcard data 
     const fetchCards = async(user_id, ilang_value, olang_value) => {
+        //todo: replace with QUERY
         const res = await axios.post("http://localhost:8081/generateflashcards", {
             id_val : user_id,
             ilang: ilang_value,
@@ -53,6 +55,16 @@ export default function Flashcard(){
             ...langData,
             [e.target.name] : e.target.value
         })
+    }
+
+    //add most recent rating 
+    //use translator id
+    const addRating = async (translator_id, curr_rating) => {
+        const res = await axios.post("http://localhost:8081/addrating", {
+            id : translator_id,
+            rating : curr_rating
+        })
+        console.log("Updataed rating")
     }
 
 
@@ -90,6 +102,7 @@ export default function Flashcard(){
         currentCard = cardData[currentIndex]
         front_value = currentCard["output_text"] //question
         back_value = currentCard["input_text"] //answer 
+        translator_id_value = currentCard["translator_id"] //translator id
         setSide(true)
 
     }
@@ -115,9 +128,9 @@ export default function Flashcard(){
                         </div>
                         {/* add rating btns */}
                         <div className = "rating-actions">
-                            <a className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top">🙌</a>
-                            <a className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top">😑</a>
-                            <a className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top">☹️</a>
+                            <a href = "#" className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 3)}>🙌</a>
+                            <a  href = "#" className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 2)}>😑</a>
+                            <a  href = "#" className = "rating-btn" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 1)}>☹️</a>
                         </div>
                         <Tooltip id = "rating-tip"/>
                     </div>
