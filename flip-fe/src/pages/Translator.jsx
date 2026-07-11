@@ -1,6 +1,6 @@
 import React, {Router} from 'react';
 import './Translator.css'
-import Arrow from '../../public/arrow.png'
+import Arrow from '../../src/assets/arrow.png'
 import {useEffect, useState} from 'react';
 
 function Translator() {
