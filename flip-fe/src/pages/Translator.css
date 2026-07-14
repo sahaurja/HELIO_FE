@@ -40,7 +40,18 @@
     height: 60px;
     width: 1320px;
     background-color: #FFFFFF;
+    border: 1px solid black;
 
+}
+
+.save-to-database-btn {
+    display: flex;
+    background-color: rgb(231, 223, 223);
+    height: 30px;
+    width: 150px;
+    border: 1px solid '#D9D9D9';
+    justify-content: center;
+    align-items: center;
 }
 
 .translator-entry-language {
