@@ -1,6 +1,5 @@
 import React, {Router} from 'react';
 import './Translator.css'
-// import Arrow from '../../public/arrow.png'
 import {useEffect, useState} from 'react';
 
 function Translator() {
@@ -8,6 +7,29 @@ function Translator() {
     const [entryLanguage, setEntryLanguage] = useState("");
     const [outputLanguage, setOutputLanguage] = useState("");
     const [outputText, setOutputText] = useState("");
+    
+    const save_translation = async () => {
+        try {
+            const res = await fetch("http://localhost:8081/translate", {
+            method: "POST",
+            headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    input_text: entryText,
+                    input_language: entryLanguage,
+                    output_language: outputLanguage,
+                    output_text: outputText,
+                }),
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     useEffect(() => {
     if (!entryText || !entryLanguage || !outputLanguage) {
@@ -43,7 +65,6 @@ function Translator() {
     translate();
 }, [entryText, entryLanguage, outputLanguage]);
 
-
   return(
     <div className='gradient-background'>
 <div className='translator-base'>
@@ -56,6 +77,7 @@ function Translator() {
                 <option value="ES">Spanish</option>
             </select>
         </label>
+         <button type="button" onClick={save_translation} className ='save-to-database-btn'> Save translation </button>
         <label>
             <select value={outputLanguage} onChange={(e) => setOutputLanguage(e.target.value)} id="output-language" className='translator-output-language' defaultValue="Select Translated Language">
                 <option value=""> Select Translated Language </option>
