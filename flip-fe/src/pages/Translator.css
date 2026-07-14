@@ -8,6 +8,13 @@
     padding-top: 20px;
 }
 
+.user-id {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 40px
+}
 
 .translator-base {
     display: flex;
@@ -32,6 +39,16 @@
     width: 1320px;
     background-color: #FFFFFF;
 
+}
+
+.save-to-database-btn {
+    display: flex;
+    background-color: rgb(231, 223, 223);
+    height: 30px;
+    width: 200px;
+    border: 1px solid '#D9D9D9';
+    justify-content: center;
+    align-items: center;
 }
 
 .translator-entry-language {
@@ -74,4 +91,3 @@
     border: 1px solid black;
     border-radius: 5px;
 }
-

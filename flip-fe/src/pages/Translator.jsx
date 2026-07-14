@@ -7,6 +7,7 @@ function Translator() {
     const [entryLanguage, setEntryLanguage] = useState("");
     const [outputLanguage, setOutputLanguage] = useState("");
     const [outputText, setOutputText] = useState("");
+    const [userid, setUserID] = useState("");
     
     const save_translation = async () => {
         try {
@@ -20,6 +21,7 @@ function Translator() {
                     input_language: entryLanguage,
                     output_language: outputLanguage,
                     output_text: outputText,
+                    user_id: userid
                 }),
             });
 
@@ -67,6 +69,7 @@ function Translator() {
 
   return(
     <div className='gradient-background'>
+    <textarea className='user-id' value={userid} onChange={(e) => setUserID(e.target.value)}> </textarea>
 <div className='translator-base'>
     <div className='translator-language-base'>
         <label>
@@ -77,7 +80,7 @@ function Translator() {
                 <option value="ES">Spanish</option>
             </select>
         </label>
-         <button type="button" onClick={save_translation} className ='save-to-database-btn'> Save translation </button>
+         <button type="button" onClick={save_translation} className ='save-to-database-btn'> Add translation to flashcards </button>
         <label>
             <select value={outputLanguage} onChange={(e) => setOutputLanguage(e.target.value)} id="output-language" className='translator-output-language' defaultValue="Select Translated Language">
                 <option value=""> Select Translated Language </option>
