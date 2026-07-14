@@ -46,9 +46,6 @@ function Translator() {
 
   return(
     <div className='gradient-background'>
-<button type="button" className ='back-button'>
-{/* <img className = "back-arrow" src={Arrow} alt="back-arrow" /> */}
-</button>
 <div className='translator-base'>
     <div className='translator-language-base'>
         <label>

@@ -1,22 +1,13 @@
 .gradient-background {
     background: linear-gradient(to bottom,#FFEFB0, #FFFFFF);
-    border: 2px solid black;
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     min-height: 95vh;
     padding-left: 20px;
     padding-top: 20px;
 }
 
-.back-button {
-    height: 50px;
-    width: 50px;
-    border-radius: 100px;
-    background-color: #FFFFFF;
-    border: 1px solid black;
-
-}
 
 .translator-base {
     display: flex;
@@ -84,7 +75,3 @@
     border-radius: 5px;
 }
 
-.back-arrow {
-    width: 30px;
-    height: 45px;
-}
