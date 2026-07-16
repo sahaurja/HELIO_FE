@@ -1,0 +1,75 @@
+/* add tailwind without Preflight */
+/* 1. Set your layer order */
+@layer theme, base, components, utilities;
+
+/* 2. Import the core package with the prefix */
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+
+
+body{
+    background: linear-gradient(#FFEFB0, #FFFFFF);
+    background-repeat: no-repeat;
+
+}
+
+
+.flashcard-container{
+    border: 1px solid black;
+    width: 600px;
+    height:600px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto;
+    background: white;
+    border-radius: 25px;
+    transform: translateY(50px);
+}
+
+.flashcard{
+    font-size: larger;
+    border: 1px solid blue;
+    padding: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 300px;
+    height: 350px;
+    transform-style: preserve-3d;
+    position: relative;
+    /* transition: transform 0.6s;  */
+}
+
+.flash-text{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.flash-actions{
+    margin: 10px;
+}
+
+.flash-actions button{
+    font-size: 15px;
+}
+
+.rating-btn{
+    padding: 10px;
+}
+
+.rating-actions{
+    position: absolute;
+    top:300px;
+    left: 110px;
+}
+
+.rating-btn{
+    font-family: monospace;
+    font-size: 40px;
+    text-decoration: none;
+}
