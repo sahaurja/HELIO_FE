@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { Tooltip } from 'react-tooltip'
+import { useNavigate } from "react-router-dom"
+
 
 
 
@@ -25,7 +27,18 @@ export default function Flashcard(){
     let back_value = currentCard ? currentCard["input_text"] : "No cards found";
     let translator_id_value = currentCard ? currentCard["translator_id"] : "None";
 
-    
+    const navigate = useNavigate()
+    //check if alr logged in, else redirect 
+    useEffect(() => {
+        async function fetchLoginStatus(){
+            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            console.log(login_res.data.success)
+            if(!login_res.data.success){
+                navigate("/login")
+            }
+        }
+        fetchLoginStatus()
+    },[])
 
     //fetch the flashcard data 
     const fetchCards = async(user_id, ilang_value, olang_value) => {

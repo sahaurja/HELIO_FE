@@ -2,12 +2,27 @@ import React, {Router} from 'react';
 import './Translator.css'
 // import Arrow from '../../public/arrow.png'
 import {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
 function Translator() {
     const [entryText, setEntryText] = useState("");
     const [entryLanguage, setEntryLanguage] = useState("");
     const [outputLanguage, setOutputLanguage] = useState("");
     const [outputText, setOutputText] = useState("");
+
+    const navigate = useNavigate()
+    //check if alr logged in, else redirect 
+    useEffect(() => {
+        async function fetchLoginStatus(){
+            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            console.log(login_res.data.success)
+            if(!login_res.data.success){
+                navigate("/login")
+            }
+        }
+        fetchLoginStatus()
+    },[])
 
     useEffect(() => {
     if (!entryText || !entryLanguage || !outputLanguage) {

@@ -17,7 +17,7 @@ export default function Login (){
     useEffect(() => {
         async function fetchLoginStatus(){
             const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
-            console.log(login_res.data)
+            console.log(login_res.data.success)
             if(login_res.data.success){
                 navigate("/flashcards")
             }
@@ -35,7 +35,9 @@ export default function Login (){
         const res = await axios.post("http://localhost:8081/dologin", loginCreds, {withCredentials:true})
         console.log(res.data)
         if(res.data.success){
-            toast(`Welcome ${loginCreds.username}`)
+            toast.success(`Welcome ${loginCreds.username}`)
+            navigate("/flashcards"), 3000
+            
         }
     }
 
