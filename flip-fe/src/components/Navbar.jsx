@@ -7,6 +7,8 @@ export default function Navbar() {
                 <a href = "/flashcards">Flashcards</a>
                 <br/>
                 <a href = "/translate">Translator</a>
+                <br/>
+                <a href = "/login">Login</a>
             </nav>
         </>
     )
