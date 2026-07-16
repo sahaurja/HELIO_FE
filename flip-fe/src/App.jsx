@@ -5,6 +5,8 @@ import Navbar from './components/Navbar'
 import Translator from './pages/Translator'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path = "/login" element = {<Login/>}/>
         </Routes>
       </Router>
+      <ToastContainer/>
     </>
   )
 }

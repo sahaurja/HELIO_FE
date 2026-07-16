@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
+import { ToastContainer, toast } from 'react-toastify'
+import { useNavigate } from "react-router-dom"
 
 export default function Login (){
 
@@ -8,16 +10,36 @@ export default function Login (){
         password:""
     })
 
+    //nav to different page
+    const navigate = useNavigate()
+
+    //check if alr logged in 
+    useEffect(() => {
+        async function fetchLoginStatus(){
+            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            console.log(login_res.data)
+            if(login_res.data.success){
+                navigate("/flashcards")
+            }
+        }
+        fetchLoginStatus()
+    },[])
+
+    //jwt token to be updated upon successful login 
+    const [token, setToken] = useState("")
+
+    //attempt to log the user in 
     const handleSubmit = async(e) => {
         e.preventDefault()
         //send to backend and get the jwt
-        const res = await axios.post("http://localhost:8081/dologin", {
-            username:loginCreds.username,
-            password:loginCreds.password
-        }, {withCredentials:true})
+        const res = await axios.post("http://localhost:8081/dologin", loginCreds, {withCredentials:true})
         console.log(res.data)
+        if(res.data.success){
+            toast(`Welcome ${loginCreds.username}`)
+        }
     }
 
+    //change username and password form values 
     const setCredChange = (e) => {
         setLoginCreds({
             ...loginCreds,
