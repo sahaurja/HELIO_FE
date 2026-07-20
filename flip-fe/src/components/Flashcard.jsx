@@ -26,6 +26,7 @@ export default function Flashcard(){
     let front_value = currentCard ? currentCard["output_text"] : "No cards found";
     let back_value = currentCard ? currentCard["input_text"] : "No cards found";
     let translator_id_value = currentCard ? currentCard["translator_id"] : "None";
+    let pic_url = currentCard ? currentCard["picture_url"] : ""
 
     const navigate = useNavigate()
     //check if alr logged in, else redirect 
@@ -120,6 +121,7 @@ export default function Flashcard(){
         front_value = currentCard["output_text"] //question
         back_value = currentCard["input_text"] //answer 
         translator_id_value = currentCard["translator_id"] //translator id
+        pic_url = currentCard["picture_url"]//picture_url
         setSide(true)
 
     }
@@ -137,6 +139,8 @@ export default function Flashcard(){
                         <div className = "flash-text">
                         {side && <div className = "front">
                             <p>{front_value}</p>
+                            {/* add image if the link exists */}
+                            <img src = {pic_url} alt = "no image" className = "flash-pic hover:scale-120"/>
                         </div>}
                         {!side && <div className = "back">
                             <p>{back_value}</p>

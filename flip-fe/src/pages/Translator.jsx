@@ -75,31 +75,6 @@ function Translator() {
         }
     };
 
-    const save_translation_og = async () => {
-        try {
-            const res = await fetch("http://localhost:8081/translate", {
-            method: "POST",
-            headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    input_text: entryText,
-                    input_language: entryLanguage,
-                    output_language: outputLanguage,
-                    output_text: outputText,
-                }),
-            });
-
-            const data = await res.json();
-            console.log(data);
-
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-
-
     //set image value 
     const handleFileChange = (e) => {
         setSelectedFile(e.target.files[0])
