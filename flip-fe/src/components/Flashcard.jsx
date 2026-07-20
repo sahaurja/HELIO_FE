@@ -32,19 +32,29 @@ export default function Flashcard(){
     useEffect(() => {
         async function fetchLoginStatus(){
             const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
-            console.log(login_res.data.success)
+            // console.log(login_res.data.success)
+            console.log(login_res.data)
             if(!login_res.data.success){
                 navigate("/login")
+            }
+            else{
+                console.log(`id: ${login_res.data.user.user_id}`)
+                //store the id_value 
+                setLangData({
+                    ...langData,
+                    id_val:login_res.data.user.user_id
+                })
+                console.log(langData.id_val)
             }
         }
         fetchLoginStatus()
     },[])
 
     //fetch the flashcard data 
-    const fetchCards = async(user_id, ilang_value, olang_value) => {
+    const fetchCards = async(ilang_value, olang_value) => {
         //todo: replace with QUERY
         const res = await axios.post("http://localhost:8081/generateflashcards", {
-            id_val : user_id,
+            id_val : langData.id_val,
             ilang: ilang_value,
             olang : olang_value
         })
@@ -53,14 +63,9 @@ export default function Flashcard(){
         setLoading(false)
     }
 
-    //fetch card data
-    // useEffect( () => {
-    //     fetchCards(0, "", "")
-    // }, [])
-
     const handleLangSubmit = (e) => {
         e.preventDefault();
-        fetchCards(langData.id_val, langData.ilang, langData.olang)
+        fetchCards(langData.ilang, langData.olang)
     }
 
     const handleValueChange = (e) => {
@@ -87,7 +92,6 @@ export default function Flashcard(){
                 <div className = "flashcard-container" style = {{zIndex:"1"}}>
                 <div className = "flashcard" style = {{margin : "10px"}}>
                     <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}}>
-                    <input name = "id_val" type = "number" placeholder="user id"  onChange={(e) => handleValueChange(e)}/>
                     <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
                     <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
                     <input type = "submit" value = "Get flashcards"/>
@@ -125,7 +129,6 @@ export default function Flashcard(){
             <>
                 <div className = "flashcard-container" style = {{zIndex:"1"}}>
                     <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}} style = {{margin : "10px"}}>
-                        <input name = "id_val" type = "number" placeholder="user id" onChange={(e) => handleValueChange(e)}/>
                         <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
                         <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
                         <input type = "submit" value = "Get flashcards"/>
