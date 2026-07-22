@@ -31,20 +31,19 @@ function Translator() {
     
     //save the translated data to the db (modified for image)
     const save_translation = async () => {
-        let url_value = ""
+        let picture_key = ""
         if(selectedFile != null){ //image was uploaded
             const formData = new FormData()
             formData.append("flash_image", selectedFile)
             //since there is an image, try to get the url
             try{
-                url_value = await axios.post("http://localhost:8081/uploadImg", formData)
-                url_value = url_value.data
-                console.log(url_value)
+                picture_key = await axios.post("http://localhost:8081/uploadImg", formData)
+                picture_key = picture_key.data
+                console.log(picture_key)
             }
             catch{
                 //nothing 
                 console.log("No image url")
-                url_value = ""
             }
         }
         else{
@@ -63,7 +62,7 @@ function Translator() {
                     output_language: outputLanguage,
                     output_text: outputText,
                     user_id: userid,
-                    picture_url : url_value
+                    picture_key : picture_key
                 }),
             });
 

@@ -26,7 +26,8 @@ export default function Flashcard(){
     let front_value = currentCard ? currentCard["output_text"] : "No cards found";
     let back_value = currentCard ? currentCard["input_text"] : "No cards found";
     let translator_id_value = currentCard ? currentCard["translator_id"] : "None";
-    let pic_url = currentCard ? currentCard["picture_url"] : ""
+    let pic_key = currentCard ? currentCard["picture_key"] : ""
+    const [imgUrl, setImgUrl] = useState("")
 
     const navigate = useNavigate()
     //check if alr logged in, else redirect 
@@ -50,6 +51,17 @@ export default function Flashcard(){
         }
         fetchLoginStatus()
     },[])
+
+    //get the url for the image stored in s3 
+    useEffect(() => {
+        async function getUrlValue(){
+            const url_value = await axios.post("http://localhost:8081/getCardImage", {
+                key:pic_key
+            })
+            setImgUrl(url_value.data)
+        }
+        getUrlValue()
+    }, [pic_key])
 
     //fetch the flashcard data 
     const fetchCards = async(ilang_value, olang_value) => {
@@ -118,12 +130,7 @@ export default function Flashcard(){
             setCurrentIndex(currentIndex - 1)
         }
         currentCard = cardData[currentIndex]
-        front_value = currentCard["output_text"] //question
-        back_value = currentCard["input_text"] //answer 
-        translator_id_value = currentCard["translator_id"] //translator id
-        pic_url = currentCard["picture_url"]//picture_url
         setSide(true)
-
     }
 
     if(!loading){
@@ -140,7 +147,7 @@ export default function Flashcard(){
                         {side && <div className = "front">
                             <p>{front_value}</p>
                             {/* add image if the link exists */}
-                            <img src = {pic_url} alt = "no image" className = "flash-pic hover:scale-120"/>
+                            {(pic_key != "") && <img src = {imgUrl} alt = "Image retieval error" className = "flash-pic hover:scale-120"/>}
                         </div>}
                         {!side && <div className = "back">
                             <p>{back_value}</p>
