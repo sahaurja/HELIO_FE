@@ -1,4 +1,5 @@
 import { TypeAnimation } from 'react-type-animation'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
 
@@ -19,13 +20,16 @@ export default function Home() {
                         Built for you, With You
                     </h1>
                     <p className="bg-white  animate-typing overflow-hidden whitespace-nowrap inline-block" style={{ "--typing-width": "47ch" }}>Learn from your own experiences. Don't just watch. DO</p>
-                    <button
-                    type="button"
-                    className="relative rounded-full text-slate-40 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500 
-                    h-14 bg-linear-65 from-green-700 to-yellow-400 p-4 font-[Indie_Flower] text-[18px] cursor-pointer hover:animate-[spin_1s_ease-in-out_1]"
-                    >
-                    Start Growing
-                    </button>
+                    <Link to = "/login">
+                        <button
+                        type="button"
+                        className="relative rounded-full text-slate-40 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500 
+                        h-14 bg-linear-65 from-green-700 to-yellow-400 p-4 font-[Indie_Flower] text-[18px] cursor-pointer hover:animate-[spin_1s_ease-in-out_1]"
+                        >
+                        Start Growing
+                        </button>
+                    </Link>
+
                     <h1></h1>
                     <h1></h1>
                     <h1></h1>
