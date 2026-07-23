@@ -129,7 +129,7 @@ function Translator() {
                 <option value="ES">Spanish</option>
             </select>
         </label>
-         <button type="button" onClick={save_translation} className ='save-to-database-btn hover:bg-emerald-200'> Add translation to flashcards </button>
+         <button type="button" onClick={save_translation} className ="save-to-database-btn bg-yellow-500 mx-4 shadow-lg shadow-yellow-500/50 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-yellow-600"> Add translation to flashcards </button>
         <label>
             <select value={outputLanguage} onChange={(e) => setOutputLanguage(e.target.value)} id="output-language" className='translator-output-language' defaultValue="Select Translated Language">
                 <option value=""> Select Translated Language </option>

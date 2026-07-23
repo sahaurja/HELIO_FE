@@ -1,6 +1,6 @@
 import './App.css'
 import Flashcard from './components/Flashcard'
-import Home from './pages/Home'
+import Home from './pages/Home_Sections/Home'
 import Navbar from './components/Navbar'
 import Translator from './pages/Translator'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'

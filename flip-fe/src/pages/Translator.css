@@ -44,7 +44,6 @@
 
 .save-to-database-btn {
     display: flex;
-    background-color: rgb(231, 223, 223);
     height: 30px;
     width: 200px;
     border: 1px solid '#D9D9D9';
@@ -79,7 +78,7 @@
 
 .translator-entry {
     height: 400px;
-    width: 200px;
+    width: 360px;
     background-color: #FFFFFF;
     border: 1px solid black;
     border-radius: 5px;
@@ -87,7 +86,7 @@
 
 .translator-output {
     height: 400px;
-    width: 200px;
+    width: 360px;
     background-color: #FFFFFF;
     border: 1px solid black;
     border-radius: 5px;

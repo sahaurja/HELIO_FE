@@ -1,5 +1,6 @@
 import { TypeAnimation } from 'react-type-animation'
 import { Link } from 'react-router-dom'
+import Demo from "./Demo"
 
 export default function Home() {
 
@@ -36,9 +37,12 @@ export default function Home() {
                     <h1></h1>
                     <h1></h1>    
                     <h1></h1> 
-                    <h1></h1>                                                                                                                        
+                    <h1></h1>  
                 </div>
-                
+            </section>
+            {/* Demo Section */}
+            <section>
+                <Demo/>
             </section>
         </>
     )
