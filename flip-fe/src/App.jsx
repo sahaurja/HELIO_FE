@@ -6,12 +6,13 @@ import Translator from './pages/Translator'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import { ToastContainer, toast } from 'react-toastify';
+import RealNavbar from './components/RealNavbar'
 
 
 function App() {
   return (
     <>
-      <Navbar />
+      <RealNavbar/>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
