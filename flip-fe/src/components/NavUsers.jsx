@@ -1,3 +1,4 @@
+// navbar for users alr logged in
 import full_logo from "../assets/full_logo.png"
 import axios from "axios"
 import { toast } from "react-toastify"
@@ -5,8 +6,8 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Demo', href: '/flashcards', current: true },
-  { name: 'FAQ', href: '/translate', current: false },
+  { name: 'My Flashcards', href: '/flashcards', current: true },
+  { name: 'Translate', href: '/translate', current: false },
 ]
 
 function classNames(...classes) {

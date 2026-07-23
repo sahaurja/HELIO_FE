@@ -7,9 +7,9 @@ export default function Home() {
             <section className="bg-[url(https://cdn.pixabay.com/photo/2017/06/14/08/20/map-of-the-world-2401458_1280.jpg)] bg-cover">
             
                 <div className = "font-[Bebas_Neue] flex flex-col items-center justify-center pt-40">
-                    <h1 className="font-[Indie_Flower] bg-white animate-typing overflow-hidden whitespace-nowrap inline-block" style={{ "--typing-width": "24ch" }}
+                    <h1 className="font-[Indie_Flower] bg-white animate-typing overflow-hidden whitespace-nowrap inline-block" style={{ "--typing-width": "5ch" }}
                     >
-                        "HELIO" Welcome to your
+                        HELIO
                     </h1>
                     <h1 className="bg-white animate-typing overflow-hidden whitespace-nowrap inline-block" style={{ "--typing-width": "36ch" }}
                     >
