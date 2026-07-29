@@ -6,7 +6,18 @@
 @import "tailwindcss/theme";
 @import "tailwindcss/utilities";
 
+/* add typing animation */
+@theme {
+  --animate-typing: typing 3.5s steps(40, end) forwards, blink .75s step-end infinite;
 
+  @keyframes typing {
+    from { width: 0; }
+    to { width: var(--typing-width);}
+  }
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+}
 
 body{
     background: linear-gradient(#FFEFB0, #FFFFFF);
@@ -48,6 +59,12 @@ body{
     align-items: center;
     display: flex;
     flex-direction: column;
+    font-family: "Indie Flower";
+}
+
+.flash-pic{
+    width: 170px;
+    transform: translateX(5px);
 }
 
 .flash-actions{
@@ -58,14 +75,19 @@ body{
     font-size: 15px;
 }
 
+
+
 .rating-btn{
-    padding: 10px;
+
+
 }
 
 .rating-actions{
     position: absolute;
     top:300px;
     left: 110px;
+    transform: translateY(20px);
+    transform: translateX(10px);
 }
 
 .rating-btn{

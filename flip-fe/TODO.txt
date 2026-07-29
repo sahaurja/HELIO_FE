@@ -1,0 +1,10 @@
+Bugs:
+1. After login, ensure the navbar gets appropriately changed (preferably without entire refresh)
+
+TODO:
+1. Store all images in s3 (starting to get a lot)
+2. Make navbar initally transparent bg, then gain color as you scroll down 
+3. Make File Input in translator.jsx a dropbox area upon clicking a button "Add Image"
+4. Add Other languages to Translator
+5. In navbar, first link is always darker, regardless of which page I am on...fix that 
+6. Add footer 

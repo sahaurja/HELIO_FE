@@ -26,25 +26,48 @@ export default function Flashcard(){
     let front_value = currentCard ? currentCard["output_text"] : "No cards found";
     let back_value = currentCard ? currentCard["input_text"] : "No cards found";
     let translator_id_value = currentCard ? currentCard["translator_id"] : "None";
+    let pic_key = currentCard ? currentCard["picture_key"] : ""
+    const [imgUrl, setImgUrl] = useState("")
 
     const navigate = useNavigate()
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
             const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
-            console.log(login_res.data.success)
+            // console.log(login_res.data.success)
+            console.log(login_res.data)
             if(!login_res.data.success){
                 navigate("/login")
+            }
+            else{
+                console.log(`id: ${login_res.data.user.user_id}`)
+                //store the id_value 
+                setLangData({
+                    ...langData,
+                    id_val:login_res.data.user.user_id
+                })
+                console.log(langData.id_val)
             }
         }
         fetchLoginStatus()
     },[])
 
+    //get the url for the image stored in s3 
+    useEffect(() => {
+        async function getUrlValue(){
+            const url_value = await axios.post("http://localhost:8081/getCardImage", {
+                key:pic_key
+            })
+            setImgUrl(url_value.data)
+        }
+        getUrlValue()
+    }, [pic_key])
+
     //fetch the flashcard data 
-    const fetchCards = async(user_id, ilang_value, olang_value) => {
+    const fetchCards = async(ilang_value, olang_value) => {
         //todo: replace with QUERY
         const res = await axios.post("http://localhost:8081/generateflashcards", {
-            id_val : user_id,
+            id_val : langData.id_val,
             ilang: ilang_value,
             olang : olang_value
         })
@@ -53,14 +76,9 @@ export default function Flashcard(){
         setLoading(false)
     }
 
-    //fetch card data
-    // useEffect( () => {
-    //     fetchCards(0, "", "")
-    // }, [])
-
     const handleLangSubmit = (e) => {
         e.preventDefault();
-        fetchCards(langData.id_val, langData.ilang, langData.olang)
+        fetchCards(langData.ilang, langData.olang)
     }
 
     const handleValueChange = (e) => {
@@ -87,7 +105,6 @@ export default function Flashcard(){
                 <div className = "flashcard-container" style = {{zIndex:"1"}}>
                 <div className = "flashcard" style = {{margin : "10px"}}>
                     <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}}>
-                    <input name = "id_val" type = "number" placeholder="user id"  onChange={(e) => handleValueChange(e)}/>
                     <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
                     <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
                     <input type = "submit" value = "Get flashcards"/>
@@ -113,11 +130,7 @@ export default function Flashcard(){
             setCurrentIndex(currentIndex - 1)
         }
         currentCard = cardData[currentIndex]
-        front_value = currentCard["output_text"] //question
-        back_value = currentCard["input_text"] //answer 
-        translator_id_value = currentCard["translator_id"] //translator id
         setSide(true)
-
     }
 
     if(!loading){
@@ -125,7 +138,6 @@ export default function Flashcard(){
             <>
                 <div className = "flashcard-container" style = {{zIndex:"1"}}>
                     <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}} style = {{margin : "10px"}}>
-                        <input name = "id_val" type = "number" placeholder="user id" onChange={(e) => handleValueChange(e)}/>
                         <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
                         <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
                         <input type = "submit" value = "Get flashcards"/>
@@ -134,13 +146,15 @@ export default function Flashcard(){
                         <div className = "flash-text">
                         {side && <div className = "front">
                             <p>{front_value}</p>
+                            {/* add image if the link exists */}
+                            {(pic_key != "") && <img src = {imgUrl} alt = "Image retieval error" className = "flash-pic hover:scale-120"/>}
                         </div>}
                         {!side && <div className = "back">
                             <p>{back_value}</p>
                         </div>}
                         </div>
                         {/* add rating btns */}
-                        <div className = "rating-actions">
+                        <div className = "rating-actions flex gap-4 items-center">
                             <a href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 3)}>🙌</a>
                             <a  href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 2)}>😑</a>
                             <a  href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 1)}>☹️</a>
