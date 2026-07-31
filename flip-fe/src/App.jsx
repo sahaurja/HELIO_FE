@@ -10,6 +10,7 @@ import RealNavbar from './components/RealNavbar'
 import NavUsers from './components/NavUsers'
 import { useState, useEffect } from 'react'
 import axios from "axios"
+import FlashcardView from './pages/FlashcardView'
 
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/flashcards" element={<Flashcard />} />
           <Route path="/translate" element={<Translator />} />
           <Route path = "/login" element = {<Login/>}/>
+          <Route path = "/viewCards" element = {<FlashcardView/>}/>
         </Routes>
       </Router>
       <ToastContainer/>
