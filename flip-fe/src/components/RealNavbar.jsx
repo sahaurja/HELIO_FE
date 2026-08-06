@@ -16,9 +16,10 @@ function classNames(...classes) {
 export default function Example() {
 
   const handleLogout = async(e) => {
-    const res = await axios.post("http://localhost:8081/dologout", {}, {withCredentials:true})
+    const res = await axios.post("http://18.117.115.172:8081/dologout", {}, {withCredentials:true})
       if(res.data.success){
-      toast.success("Successfully logged out")
+        window.location.reload()
+        toast.success("Successfully logged out")
     }
   }
   return (

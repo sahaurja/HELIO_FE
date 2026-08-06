@@ -35,7 +35,7 @@ export default function EditFlashcardPopup({translator_id, init_input, init_outp
             formData.append("flash_image", selectedFile)
             //since there is an image, try to get the url
             try{
-                picture_key = await axios.post("http://localhost:8081/uploadImg", formData)
+                picture_key = await axios.post("http://18.117.115.172:8081/uploadImg", formData)
                 picture_key = picture_key.data
                 console.log(picture_key)
             }
@@ -46,12 +46,13 @@ export default function EditFlashcardPopup({translator_id, init_input, init_outp
         }
         try{
             //update request 
-            const res = await axios.put("http://localhost:8081/updateFlashcard", {
+            const res = await axios.put("http://18.117.115.172:8081/updateFlashcard", {
             translator_id:translator_id,
             input_text:flashcardValues.input_text,
             output_text:flashcardValues.output_text,
             pic_key:picture_key
             })
+            window.location.reload()
         }
         catch (err){
             console.log(err)

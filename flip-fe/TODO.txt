@@ -15,3 +15,16 @@ TODO:
 11. Add Profile Section
 12. Change Login form ... https://v1.tailwindcss.com/components/forms
 13. Add Contact Us Section to Homepage 
+14. For editing flashcards, add option to REMOVE IMAGE
+15. Fix indendation for My Cards individual halves 
+
+
+______
+
+EC2 
+
+
+rsync -avz --exclude 'node_modules' --exclude '.git' --exclude '.env' --exclude 'TODO.txt' -e "ssh -i /Users/urjasaha/Desktop/my/AWS/helio_urja_pooja.pem" . ubuntu@ec2-18-117-115-172.us-east-2.compute.amazonaws.com:~/app/flip-fe
+
+
+ssh -i "helio_urja_pooja.pem" ubuntu@ec2-18-117-115-172.us-east-2.compute.amazonaws.com

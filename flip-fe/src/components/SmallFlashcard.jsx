@@ -2,21 +2,27 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import EditFlashcardPopup from "./EditFlashcardPopup";
+import CardProgress from "./CardProgress";
 
 export default function SmallFlashcard({ translator_id, input_text, picture_key, output_text }) {
   const show_img = picture_key !== "";
   const [imgUrl, setImgUrl] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
+  const [showProgress, setShowProgress] = useState(false)
 
   const handleShowEdit = () => {
     setShowEdit(!showEdit);
   };
 
+  const handleShowProgress = () => {
+    setShowProgress(!showProgress)
+  }
+
   useEffect(() => {
     async function getUrlValue() {
       if (show_img) {
         try {
-          const url_value = await axios.post("http://localhost:8081/getCardImage", { key: picture_key });
+          const url_value = await axios.post("http://18.117.115.172:8081/getCardImage", { key: picture_key });
           setImgUrl(url_value.data);
         } catch (err) {
           console.log("Error fetching image");
@@ -54,6 +60,7 @@ export default function SmallFlashcard({ translator_id, input_text, picture_key,
               <button 
                 type="button"
                 className="text-left rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100 w-full"
+                onClick = {handleShowProgress}
               >
                 View Progress
               </button>
@@ -63,6 +70,7 @@ export default function SmallFlashcard({ translator_id, input_text, picture_key,
         </div>
       </div>
       {showEdit && <EditFlashcardPopup translator_id = {translator_id} init_input = {input_text} init_output={output_text} init_pic={picture_key}/>}
+      {showProgress && <CardProgress translator_id = {translator_id}/>}
     </>
   );
 }

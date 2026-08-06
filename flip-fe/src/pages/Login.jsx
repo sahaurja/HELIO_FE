@@ -16,7 +16,8 @@ export default function Login (){
     //check if alr logged in 
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            //change to ec2
+            const login_res = await axios.get("http://18.117.115.172:8081/verifyUser", {withCredentials:true})
             console.log(login_res.data.success)
             if(login_res.data.success){
                 navigate("/flashcards")
@@ -32,9 +33,10 @@ export default function Login (){
     const handleSubmit = async(e) => {
         e.preventDefault()
         //send to backend and get the jwt
-        const res = await axios.post("http://localhost:8081/dologin", loginCreds, {withCredentials:true})
+        const res = await axios.post("http://18.117.115.172:8081/dologin", loginCreds, {withCredentials:true})
         console.log(res.data)
         if(res.data.success){
+            window.location.reload()
             toast.success(`Welcome ${loginCreds.username}`)
             navigate("/flashcards"), 3000
             

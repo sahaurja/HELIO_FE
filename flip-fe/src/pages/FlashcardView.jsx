@@ -16,7 +16,7 @@ export default function FlashcardView(){
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            const login_res = await axios.get("http://18.117.115.172:8081/verifyUser", {withCredentials:true})
             // console.log(login_res.data.success)
             console.log(login_res.data)
             if(!login_res.data.success){
@@ -36,7 +36,7 @@ export default function FlashcardView(){
         async function fetchAllCards(){
             if(userId != null){
                 console.log("fetching cards")
-                const res = await axios.post("http://localhost:8081/fetchCards",{
+                const res = await axios.post("http://18.117.115.172:8081/fetchCards",{
                     id_val : userId
                 })
                 setAllCards(res.data)

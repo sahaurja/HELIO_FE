@@ -17,7 +17,7 @@ function Translator() {
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            const login_res = await axios.get("http://18.117.115.172:8081/verifyUser", {withCredentials:true})
             console.log(login_res.data.success)
             if(!login_res.data.success){
                 navigate("/login")
@@ -37,7 +37,7 @@ function Translator() {
             formData.append("flash_image", selectedFile)
             //since there is an image, try to get the url
             try{
-                picture_key = await axios.post("http://localhost:8081/uploadImg", formData)
+                picture_key = await axios.post("http://18.117.115.172:8081/uploadImg", formData)
                 picture_key = picture_key.data
                 console.log(picture_key)
             }
@@ -50,7 +50,7 @@ function Translator() {
             console.log("No selected image value")
         }
         try {
-            const res = await fetch("http://localhost:8081/translate", {
+            const res = await fetch("http://18.117.115.172:8081/translate", {
             method: "POST",
             headers: {
                     "Content-Type": "application/json",
