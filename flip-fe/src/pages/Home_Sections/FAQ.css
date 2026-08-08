@@ -1,0 +1,12 @@
+.faq-footer {
+  width: 100%;
+  background: #FFEFB0;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  align-items: flex-start;
+  padding: 1.5rem 0;
+  box-sizing: border-box;
+  margin-top: auto;
+} 
+.bold-text { font-weight: 600; text-align: center; font-size: medium; } .subtext { text-align: center; font-size: small; font-weight: 300; } .subdivider { flex: 1 1 0; min-width: 120px; } .subdivider p { margin: 0.8rem 0; }

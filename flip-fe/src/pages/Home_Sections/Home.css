@@ -1,0 +1,8 @@
+@import "tailwindcss";
+.Background-image {
+  background-image: url("../../assets/interactive-background.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
