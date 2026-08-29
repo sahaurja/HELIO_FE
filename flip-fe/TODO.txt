@@ -8,3 +8,10 @@ TODO:
 4. Add Other languages to Translator
 5. In navbar, first link is always darker, regardless of which page I am on...fix that 
 6. Add footer 
+7. Fix homepage width issue 
+8. Put logo in more places
+9. Fix with on Translator.jsx 
+10. Add Edit and History mode on FlashcardView.jsx
+11. Add Profile Section
+12. Change Login form ... https://v1.tailwindcss.com/components/forms
+13. Add Contact Us Section to Homepage 

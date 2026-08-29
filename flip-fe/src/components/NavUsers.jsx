@@ -6,8 +6,9 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'My Flashcards', href: '/flashcards', current: false },
+  { name: 'Study', href: '/flashcards', current: false },
   { name: 'Translate', href: '/translate', current: false },
+  { name: "My Cards", href: "/viewCards", current: false}
 ]
 
 function classNames(...classes) {
@@ -66,7 +67,7 @@ export default function Example() {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="flex items-center space-x-4 sm:ml-6">
             <button
               type="button"
               className="relative rounded-full text-slate-40 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500 

@@ -109,7 +109,7 @@ export default function Flashcard(){
                     <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
                     <input type = "submit" value = "Get flashcards"/>
                 </form>
-                <p>Fill Form to Get Flashcards</p>
+                <p className = "font-[Figtree]">Fill Form to Get Flashcards</p>
                 </div>
                
             </div>
@@ -145,12 +145,12 @@ export default function Flashcard(){
                     <div className = "flashcard">
                         <div className = "flash-text">
                         {side && <div className = "front">
-                            <p>{front_value}</p>
+                            <p className = "font-[Figtree]">{front_value}</p>
                             {/* add image if the link exists */}
                             {(pic_key != "") && <img src = {imgUrl} alt = "Image retieval error" className = "flash-pic hover:scale-120"/>}
                         </div>}
                         {!side && <div className = "back">
-                            <p>{back_value}</p>
+                            <p className = "font-[Figtree]">{back_value}</p>
                         </div>}
                         </div>
                         {/* add rating btns */}
