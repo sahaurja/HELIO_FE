@@ -31,17 +31,27 @@ export default function Login (){
     const [token, setToken] = useState("")
 
     //attempt to log the user in 
-    const handleSubmit = async(e) => {
-        e.preventDefault()
-        //send to backend and get the jwt
-        const res = await axios.post(`${BACKEND_URL}/dologin`, loginCreds, {withCredentials:true})
-        console.log(res.data)
-        if(res.data.success){
-            toast.success(`Welcome ${loginCreds.username}`)
-            navigate("/flashcards"), 3000
-            
-        }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Send to backend and get the jwt
+    const res = await axios.post(`${BACKEND_URL}/dologin`, loginCreds, { withCredentials: true });
+    console.log("Server response:", res.data); // This will now print if successful
+    
+    if (res.data.success) {
+      toast.success(`Welcome ${loginCreds.username}`);
+      setTimeout(() => {
+        navigate("/flashcards");
+      }, 2000);
+    } else {
+      toast.error(res.data); // Shows "Invalid Password" or "Username not Registered"
     }
+  } catch (err) {
+    console.error("Login request completely failed:", err);
+    toast.error("Network error: Could not connect to server.");
+  }
+};
+
 
     //change username and password form values 
     const setCredChange = (e) => {
