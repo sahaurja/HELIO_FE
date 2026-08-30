@@ -43,6 +43,8 @@ const handleSubmit = async (e) => {
       setTimeout(() => {
         navigate("/flashcards");
       }, 2000);
+    //   auto reload to get new navbar 
+        window.location.reload()
     } else {
       toast.error(res.data); // Shows "Invalid Password" or "Username not Registered"
     }
