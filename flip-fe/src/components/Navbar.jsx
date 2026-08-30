@@ -6,7 +6,7 @@ export default function Navbar() {
 
 
     const handleLogout = async(e) => {
-        const res = await axios.post("http://localhost:8081/dologout", {}, {withCredentials:true})
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/dologout`, {}, {withCredentials:true})
         if(res.data.success){
             toast.success("Successfully logged out")
         }

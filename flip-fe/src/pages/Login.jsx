@@ -10,7 +10,7 @@ export default function Login (){
         password:""
     })
 
-    const BACKEND_URL = "https://helio-be.vercel.app"; 
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     //nav to different page
     const navigate = useNavigate()

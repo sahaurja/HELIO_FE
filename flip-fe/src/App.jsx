@@ -17,7 +17,7 @@ import FlashcardView from './pages/FlashcardView'
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const navigate = useNavigate()
-    const BACKEND_URL = "https://helio-be.vercel.app";
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     //check if alr logged in, else redirect 
     useEffect(() => {

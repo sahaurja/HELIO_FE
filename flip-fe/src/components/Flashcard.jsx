@@ -33,7 +33,7 @@ export default function Flashcard(){
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            const login_res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/verifyUser`, {withCredentials:true})
             // console.log(login_res.data.success)
             console.log(login_res.data)
             if(!login_res.data.success){
@@ -55,7 +55,7 @@ export default function Flashcard(){
     //get the url for the image stored in s3 
     useEffect(() => {
         async function getUrlValue(){
-            const url_value = await axios.post("http://localhost:8081/getCardImage", {
+            const url_value = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/getCardImage`, {
                 key:pic_key
             })
             setImgUrl(url_value.data)
@@ -66,7 +66,7 @@ export default function Flashcard(){
     //fetch the flashcard data 
     const fetchCards = async(ilang_value, olang_value) => {
         //todo: replace with QUERY
-        const res = await axios.post("http://localhost:8081/generateflashcards", {
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/generateflashcards`, {
             id_val : langData.id_val,
             ilang: ilang_value,
             olang : olang_value
@@ -91,7 +91,7 @@ export default function Flashcard(){
     //add most recent rating 
     //use translator id
     const addRating = async (translator_id, curr_rating) => {
-        const res = await axios.post("http://localhost:8081/addrating", {
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/addrating`, {
             id : translator_id,
             rating : curr_rating
         })

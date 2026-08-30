@@ -28,7 +28,7 @@ export default function SmallFlashcard({
     if (!showProgress) {
       try {
         const res = await fetch(
-          `http://localhost:8081/getratings?translator_id=${translator_id}`
+          `${import.meta.env.VITE_BACKEND_URL}/getratings?translator_id=${translator_id}`
         );
 
         const data = await res.json();
@@ -45,7 +45,7 @@ export default function SmallFlashcard({
       if (show_img) {
         try {
           const url_value = await axios.post(
-            "http://localhost:8081/getCardImage",
+            `${import.meta.env.VITE_BACKEND_URL}/getCardImage`,
             { key: picture_key }
           );
 

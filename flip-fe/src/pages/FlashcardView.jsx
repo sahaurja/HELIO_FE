@@ -14,8 +14,8 @@ export default function FlashcardView(){
 
     const navigate = useNavigate()
 
-    //for use with deployment 
-    const BACKEND_URL = "https://vercel.app";
+    //for use with deployment
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     //check if alr logged in, else redirect 
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function FlashcardView(){
         async function fetchAllCards(){
             if(userId != null){
                 console.log("fetching cards")
-                const res = await axios.post('${BACKEND_URL}/fetchCards',{
+                const res = await axios.post(`${BACKEND_URL}/fetchCards`,{
                     id_val : userId
                 })
                 setAllCards(res.data)
