@@ -38,7 +38,6 @@ function App() {
   return (
     <>
       {!loggedIn ? <RealNavbar/> : <NavUsers/>}
-      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/flashcards" element={<Flashcard />} />
@@ -46,7 +45,6 @@ function App() {
           <Route path = "/login" element = {<Login/>}/>
           <Route path = "/viewCards" element = {<FlashcardView/>}/>
         </Routes>
-      </Router>
       <ToastContainer/>
     </>
   )
