@@ -30,7 +30,7 @@ export default function EditFlashcardPopup({translator_id, init_input, init_outp
     const handleFormSubmit = async(e) => {
         e.preventDefault()
         let picture_key = init_pic
-        //get the picture key if picture was uplaoded
+        //get the picture key if picture was uplaoded 
         if(selectedFile != null){
             const formData = new FormData()
             formData.append("flash_image", selectedFile)

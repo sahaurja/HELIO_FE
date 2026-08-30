@@ -54,6 +54,7 @@ export default function Flashcard(){
 
     //get the url for the image stored in s3 
     useEffect(() => {
+        if(pic_key == "") return
         async function getUrlValue(){
             const url_value = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/getCardImage`, {
                 key:pic_key
