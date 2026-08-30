@@ -21,6 +21,7 @@ function App() {
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
+            console.log("checking status in homepage")
             const login_res = await axios.get('${BACKEND_URL}/verifyUser', {withCredentials:true})
             // console.log(login_res.data.success)
             console.log(login_res.data)
