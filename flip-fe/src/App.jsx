@@ -16,10 +16,12 @@ import FlashcardView from './pages/FlashcardView'
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
+    const BACKEND_URL = "https://vercel.app";
+
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            const login_res = await axios.get('${BACKEND_URL}/verifyUser', {withCredentials:true})
             // console.log(login_res.data.success)
             console.log(login_res.data)
             if(!login_res.data.success){

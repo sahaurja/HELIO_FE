@@ -13,10 +13,15 @@ export default function FlashcardView(){
     const [allCards, setAllCards] = useState([])
 
     const navigate = useNavigate()
+
+    //for use with deployment 
+    const BACKEND_URL = "https://vercel.app";
+
     //check if alr logged in, else redirect 
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
+            const login_res = await axios.get(`${BACKEND_URL}/verifyUser`, { withCredentials: true })
+            // const login_res = await axios.get("http://localhost:8081/verifyUser", {withCredentials:true})
             // console.log(login_res.data.success)
             console.log(login_res.data)
             if(!login_res.data.success){
@@ -36,7 +41,7 @@ export default function FlashcardView(){
         async function fetchAllCards(){
             if(userId != null){
                 console.log("fetching cards")
-                const res = await axios.post("http://localhost:8081/fetchCards",{
+                const res = await axios.post('${BACKEND_URL}/fetchCards',{
                     id_val : userId
                 })
                 setAllCards(res.data)
