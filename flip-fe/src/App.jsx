@@ -16,7 +16,7 @@ import FlashcardView from './pages/FlashcardView'
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
-    const BACKEND_URL = "https://vercel.app";
+    const BACKEND_URL = "https://helio-be.vercel.app";
 
     //check if alr logged in, else redirect 
     useEffect(() => {
