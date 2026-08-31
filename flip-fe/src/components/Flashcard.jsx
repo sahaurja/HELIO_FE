@@ -49,7 +49,10 @@ export default function Flashcard(){
 
     //get the url for the image stored in s3
     useEffect(() => {
-        if(pic_key == "") return
+        if(pic_key == ""){
+            setImgUrl("")
+            return
+        }
         async function getUrlValue(){
             const url_value = await axios.post(`${BACKEND_URL}/getCardImage`, {
                 key:pic_key
