@@ -1,11 +1,12 @@
 import './App.css'
 import Flashcard from './components/Flashcard'
 import Home from './pages/Home_Sections/Home'
-import Navbar from './components/Navbar'
 import Translator from './pages/Translator'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
-import { ToastContainer, toast } from 'react-toastify';
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
+import { ToastContainer } from 'react-toastify';
 import RealNavbar from './components/RealNavbar'
 import NavUsers from './components/NavUsers'
 import { useState, useEffect } from 'react'
@@ -34,6 +35,8 @@ function App() {
           <Route path="/flashcards" element={<Flashcard />} />
           <Route path="/translate" element={<Translator />} />
           <Route path = "/login" element = {<Login/>}/>
+          <Route path = "/register" element = {<Register/>}/>
+          <Route path = "/dashboard" element = {<Dashboard/>}/>
           <Route path = "/viewCards" element = {<FlashcardView/>}/>
         </Routes>
       <ToastContainer/>
