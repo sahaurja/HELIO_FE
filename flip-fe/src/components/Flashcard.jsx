@@ -1,18 +1,14 @@
-//later, pass in the data as a prob per card 
+//later, pass in the data as a prob per card
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { Tooltip } from 'react-tooltip'
 import { useNavigate } from "react-router-dom"
 
-
-
-
 export default function Flashcard(){
 
-    const [isFlipped, setIsFlipped] = useState(false) //initially not flipped
     const [cardData, setCardData] = useState([])
     //side visible to users
-    const [side, setSide] = useState(true)
+    const [side, setSide] = useState(true) //true = front, false = back
     //specific flashcard we are on
     const [currentIndex, setCurrentIndex] = useState(0)
     //loading state
@@ -22,41 +18,40 @@ export default function Flashcard(){
         ilang: "",
         olang : ""
     })
-    let currentCard = cardData.length > 0 ? cardData[currentIndex] : null;
-    let front_value = currentCard ? currentCard["output_text"] : "No cards found";
-    let back_value = currentCard ? currentCard["input_text"] : "No cards found";
-    let translator_id_value = currentCard ? currentCard["translator_id"] : "None";
-    let pic_key = currentCard ? currentCard["picture_key"] : ""
     const [imgUrl, setImgUrl] = useState("")
 
     const navigate = useNavigate()
-    //check if alr logged in, else redirect 
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
+    const currentCard = cardData.length > 0 ? cardData[currentIndex] : null
+    const front_value = currentCard ? currentCard["output_text"] : "No cards found"
+    const back_value = currentCard ? currentCard["input_text"] : "No cards found"
+    const translator_id_value = currentCard ? currentCard["translator_id"] : "None"
+    const pic_key = currentCard ? currentCard["picture_key"] : ""
+
+    //check if alr logged in, else redirect
     useEffect(() => {
         async function fetchLoginStatus(){
-            const login_res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/verifyUser`, {withCredentials:true})
-            // console.log(login_res.data.success)
-            console.log(login_res.data)
+            const login_res = await axios.get(`${BACKEND_URL}/verifyUser`, {withCredentials:true})
             if(!login_res.data.success){
                 navigate("/login")
             }
             else{
-                console.log(`id: ${login_res.data.user.user_id}`)
-                //store the id_value 
-                setLangData({
-                    ...langData,
-                    id_val:login_res.data.user.user_id
-                })
-                console.log(langData.id_val)
+                //store the id_value
+                setLangData(prev => ({
+                    ...prev,
+                    id_val: login_res.data.user.user_id
+                }))
             }
         }
         fetchLoginStatus()
     },[])
 
-    //get the url for the image stored in s3 
+    //get the url for the image stored in s3
     useEffect(() => {
         if(pic_key == "") return
         async function getUrlValue(){
-            const url_value = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/getCardImage`, {
+            const url_value = await axios.post(`${BACKEND_URL}/getCardImage`, {
                 key:pic_key
             })
             setImgUrl(url_value.data)
@@ -64,16 +59,16 @@ export default function Flashcard(){
         getUrlValue()
     }, [pic_key])
 
-    //fetch the flashcard data 
+    //fetch the flashcard data
     const fetchCards = async(ilang_value, olang_value) => {
-        //todo: replace with QUERY
-        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/generateflashcards`, {
+        const res = await axios.post(`${BACKEND_URL}/generateflashcards`, {
             id_val : langData.id_val,
             ilang: ilang_value,
             olang : olang_value
         })
-        console.log(res.data)
         setCardData(res.data)
+        setCurrentIndex(0)
+        setSide(true)
         setLoading(false)
     }
 
@@ -89,87 +84,87 @@ export default function Flashcard(){
         })
     }
 
-    //add most recent rating 
+    //add most recent rating
     //use translator id
     const addRating = async (translator_id, curr_rating) => {
-        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/addrating`, {
+        await axios.post(`${BACKEND_URL}/addrating`, {
             id : translator_id,
             rating : curr_rating
         })
-        console.log("Updataed rating")
     }
-
 
     if (loading){
         return (
-            <>
-                <div className = "flashcard-container" style = {{zIndex:"1"}}>
-                <div className = "flashcard" style = {{margin : "10px"}}>
-                    <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}}>
-                    <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
-                    <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
-                    <input type = "submit" value = "Get flashcards"/>
+            <div className="flex justify-center py-16 px-4 font-[Figtree]">
+                <form className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 flex flex-col gap-3" onSubmit={(e) => {handleLangSubmit(e)}}>
+                    <h2 className="text-lg font-semibold text-gray-800">Get your flashcards</h2>
+                    <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)} className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+                    <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)} className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+                    <input type = "submit" value = "Get flashcards" className="mt-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg px-4 py-2 transition-colors cursor-pointer"/>
+                    <p className="text-sm text-gray-500 text-center">Fill the form to get flashcards</p>
                 </form>
-                <p className = "font-[Figtree]">Fill Form to Get Flashcards</p>
-                </div>
-               
             </div>
-            </>
         )
     }
 
-
-    const handleSide = (e) => {
+    const handleSide = () => {
         setSide(!side)
     }
 
-    const handleMovement = (e, direction) => {
-        if(direction == "front"){
-            setCurrentIndex(currentIndex + 1)
-        }
-        else{
-            setCurrentIndex(currentIndex - 1)
-        }
-        currentCard = cardData[currentIndex]
+    const handleMovement = (direction) => {
+        if(cardData.length === 0) return
+        const nextIndex = direction === "front"
+            ? (currentIndex + 1) % cardData.length
+            : (currentIndex - 1 + cardData.length) % cardData.length
+        setCurrentIndex(nextIndex)
         setSide(true)
     }
 
-    if(!loading){
-        return(
-            <>
-                <div className = "flashcard-container" style = {{zIndex:"1"}}>
-                    <form className = "language_selector" onSubmit={(e) => {handleLangSubmit(e)}} style = {{margin : "10px"}}>
-                        <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)}/>
-                        <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)}/>
-                        <input type = "submit" value = "Get flashcards"/>
-                    </form>
-                    <div className = "flashcard">
-                        <div className = "flash-text">
-                        {side && <div className = "front">
-                            <p className = "font-[Figtree]">{front_value}</p>
-                            {/* add image if the link exists */}
-                            {(pic_key != "") && <img src = {imgUrl} alt = "Image retieval error" className = "flash-pic hover:scale-120"/>}
-                        </div>}
-                        {!side && <div className = "back">
-                            <p className = "font-[Figtree]">{back_value}</p>
-                        </div>}
-                        </div>
-                        {/* add rating btns */}
-                        <div className = "rating-actions flex gap-4 items-center">
-                            <a href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 3)}>🙌</a>
-                            <a  href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 2)}>😑</a>
-                            <a  href = "#" className = "rating-btn hover:animate-bounce inline-block" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top" onClick = {(e) => addRating(translator_id_value, 1)}>☹️</a>
-                        </div>
-                        <Tooltip id = "rating-tip"/>
+    return(
+        <div className="flex flex-col items-center gap-6 py-10 px-4 font-[Figtree]">
+            <form className="w-full max-w-md bg-white rounded-2xl shadow-md p-4 flex flex-col sm:flex-row gap-2" onSubmit={(e) => {handleLangSubmit(e)}}>
+                <input name = "ilang" type = "text" placeholder = "input language" onChange={(e) => handleValueChange(e)} className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+                <input name = "olang" type = "text" placeholder = "output language" onChange={(e) => handleValueChange(e)} className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+                <input type = "submit" value = "Get flashcards" className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg px-4 py-2 transition-colors whitespace-nowrap cursor-pointer"/>
+            </form>
+
+            {/* flip card */}
+            <div className="perspective-distant w-full max-w-md h-72">
+                <div
+                    className={`relative w-full h-full rounded-2xl transition-transform duration-700 ease-in-out transform-3d ${
+                        side
+                            ? "transform-[rotateY(0deg)] shadow-[10px_15px_30px_rgba(0,0,0,0.25)]"
+                            : "transform-[rotateY(180deg)] shadow-[-10px_15px_30px_rgba(0,0,0,0.25)]"
+                    }`}
+                >
+                    {/* front */}
+                    <div className="absolute inset-0 backface-hidden rounded-2xl bg-white border border-gray-100 flex flex-col items-center justify-center gap-3 p-6 overflow-hidden">
+                        <p className="text-xl font-medium text-gray-800 text-center">{front_value}</p>
+                        {imgUrl && (
+                            <img src={imgUrl} alt="flashcard" className="max-h-32 rounded-lg object-contain hover:scale-105 transition-transform"/>
+                        )}
                     </div>
-                    <div className="flash-actions">
-                        <button style={{marginRight:"10px"}} onClick={(e) => handleMovement(e, "back")}>Back</button>
-                        <button style={{marginRight:"10px"}} onClick={(e) => handleSide(e)}>Flip</button>
-                        <button onClick={(e) => handleMovement(e, "front")}>Next</button>
+                    {/* back */}
+                    <div className="absolute inset-0 backface-hidden transform-[rotateY(180deg)] rounded-2xl bg-yellow-50 border border-yellow-100 flex items-center justify-center p-6">
+                        <p className="text-xl font-medium text-gray-800 text-center">{back_value}</p>
                     </div>
                 </div>
-            </>
-        )
-    }
+            </div>
 
+            {/* rating actions */}
+            <div className="flex gap-6 items-center text-2xl">
+                <a href = "#" data-tooltip-id = "rating-tip" data-tooltip-content = "Confident" data-tooltip-place = "top" onClick = {() => addRating(translator_id_value, 3)} className="hover:scale-125 transition-transform cursor-pointer">🙌</a>
+                <a href = "#" data-tooltip-id = "rating-tip" data-tooltip-content = "Ok" data-tooltip-place = "top" onClick = {() => addRating(translator_id_value, 2)} className="hover:scale-125 transition-transform cursor-pointer">😑</a>
+                <a href = "#" data-tooltip-id = "rating-tip" data-tooltip-content = "Confused" data-tooltip-place = "top" onClick = {() => addRating(translator_id_value, 1)} className="hover:scale-125 transition-transform cursor-pointer">☹️</a>
+            </div>
+            <Tooltip id = "rating-tip"/>
+
+            {/* nav */}
+            <div className="flex gap-3">
+                <button onClick={() => handleMovement("back")} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg px-4 py-2 transition-colors">Back</button>
+                <button onClick={handleSide} className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg px-4 py-2 transition-colors">Flip</button>
+                <button onClick={() => handleMovement("front")} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg px-4 py-2 transition-colors">Next</button>
+            </div>
+        </div>
+    )
 }
