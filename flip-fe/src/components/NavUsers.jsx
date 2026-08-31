@@ -1,5 +1,6 @@
 // navbar for users alr logged in
 import full_logo from "../assets/full_logo.png"
+import helio_icon from "../assets/helio.png"
 import { Link } from "react-router-dom"
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -79,8 +80,8 @@ export default function Example() {
               <span className="sr-only">Open dashboard</span>
               <img
                 alt=""
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
+                src={helio_icon}
+                className="size-8 rounded-full bg-gray-800 object-cover outline -outline-offset-1 outline-white/10"
               />
             </Link>
           </div>
