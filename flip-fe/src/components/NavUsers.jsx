@@ -1,6 +1,6 @@
 // navbar for users alr logged in
 import full_logo from "../assets/full_logo.png"
-import helio_icon from "../assets/helio.png"
+import helio_icon from "../assets/corporate_girl.jpeg"
 import { Link } from "react-router-dom"
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'

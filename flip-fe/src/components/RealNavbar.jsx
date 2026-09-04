@@ -58,11 +58,11 @@ export default function Example() {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
             <Link
               to="/register"
               className="relative rounded-full text-slate-40 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500
-                        h-14 bg-linear-65 from-green-700 to-yellow-400 p-4 font-[Indie_Flower] text-[18px] cursor-pointer flex items-center"
+                        h-6 bg-linear-65 from-green-700 to-yellow-400 p-4 font-[Indie_Flower] text-[18px] cursor-pointer flex items-center"
             >
               Get Started
             </Link>
